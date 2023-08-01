@@ -1,6 +1,16 @@
 import React from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
+
+    // const history = useNavigate();
+    // useEffect(() => {
+    //     if (localStorage.getItem("userInfo")) {
+    //         history("/profile");
+    //     }
+    // }, [history]);
+
     return (
         <div class="form-container row">
             <div>
