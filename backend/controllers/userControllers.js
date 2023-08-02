@@ -91,4 +91,32 @@ const authUser = asyncHandler(async (req, res) => {
     
 });
 
-module.exports = {registerUser, authUser, loginMetamask};
+//UPDATE
+const updateUser = asyncHandler(async (req, res) => {
+
+    const {firstname, lastname, email, phoneNo, id} = req.body;
+    const user = await User.findOne({ _id: id });
+
+    if(user)
+    {
+        user.firstname = firstname || user.firstname;
+        user.lastname = lastname || user.lastname;
+        user.email = email || user.email;
+        user.phoneNo = phoneNo || user.phoneNo;
+
+        const updatedUser = await user.save();
+
+        res.json({
+            _id: updatedUser._id,
+            firstname: updatedUser.firstname,
+            lastname: updatedUser.lastname,
+            email: updatedUser.email,
+            phoneNo: updatedUser.phoneNo,
+            isAdmin: updatedUser.isAdmin,
+            token: generateToken(updatedUser._id),
+            pic: updatedUser.pic,
+        });
+    }
+})
+
+module.exports = {registerUser, authUser, loginMetamask, updateUser};

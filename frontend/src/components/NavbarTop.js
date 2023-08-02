@@ -10,6 +10,10 @@ function NavbarTop() {
         history("/");
     }
 
+    function handleClickEdit() {
+        history("/edit");
+    }
+
     return (
         <div className="container">
             <nav class="navbar navbar-expand-lg navbar-dark">
@@ -27,7 +31,17 @@ function NavbarTop() {
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <button className="ml-auto login-btn btn btn-primary" onClick={handleClick}>
+                    <button
+                        className="ml-auto login-btn btn btn-primary"
+                        onClick={handleClickEdit}
+                    >
+                        {" "}
+                        Edit{" "}
+                    </button>
+                    <button
+                        className="ml-3 login-btn btn btn-primary"
+                        onClick={handleClick}
+                    >
                         {" "}
                         Sign-out{" "}
                     </button>

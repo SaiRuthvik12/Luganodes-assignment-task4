@@ -6,6 +6,7 @@ import Register from "./Register";
 import Landing from "./Landing";
 import RegisterMetamask from "./RegisterMetamask";
 import Profile from "./Profile";
+import Edit from "./Edit";
 
 function App() {
     const [userInfo, setUserInfo] = useState(null);
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/Register" element={<Register setUserRegister = {setUserInfo}/>}></Route>
                 <Route path="/Registermetamask" element={<RegisterMetamask userInfo = {userInfo}/>}></Route>
                 <Route path="/Profile" element={<Profile />}></Route>
+                <Route path="/edit" element={<Edit />}></Route>
             </Routes>
         </BrowserRouter>
     );
