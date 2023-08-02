@@ -4,6 +4,7 @@ import axios from "axios";
 import Loading from "./Loading";
 import ErrorMsg from "./ErrorMsg";
 import { useNavigate } from "react-router-dom";
+import fox from "./MetaMask_Fox.svg.png"
 
 const Register = (props) => {
     const history = useNavigate();
@@ -141,15 +142,6 @@ const Register = (props) => {
                         required
                         autofocus
                     />
-                    <input
-                        type="file"
-                        name="pic"
-                        class="form-control top"
-                        placeholder="Profile Picture URL"
-                        onChange={(e) => setPic(e.target.value)}
-                        required
-                        autofocus
-                    />
 
                     <button
                         class="login-btn btn btn-lg btn-primary btn-block"
@@ -161,6 +153,7 @@ const Register = (props) => {
                 </form>
             </div>
             <div class="col-lg-6 register-form">
+                <img src={fox} className="App-logo" alt="logo" />
                 <form class="form-signin" action="/Login">
                     <button
                         class="login-btn btn btn-lg btn-primary btn-block wallet-button"

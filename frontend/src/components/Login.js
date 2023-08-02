@@ -4,6 +4,7 @@ import axios from "axios";
 import Loading from "./Loading";
 import ErrorMsg from "./ErrorMsg";
 import {useNavigate} from "react-router-dom";
+import fox from "./MetaMask_Fox.svg.png"
 
 const Login = () => {
 
@@ -127,6 +128,7 @@ const Login = () => {
                 {/* <h3 class="login-title failed-msg">{msg}</h3> */}
             </div>
             <div class="col-lg-6 register-form">
+                <img src={fox} className="App-logo smaller-logo" alt="logo" />
                 <form class="form-signin" action="/Login">
                     <button
                         class="login-btn btn btn-lg btn-primary btn-block wallet-button-2"
