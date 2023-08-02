@@ -64,9 +64,10 @@ const Login = () => {
                     };
 
                     setLoading(true);
+                    console.log(accounts[0])
                     const { data } = await axios.post(
                         "/api/users/loginmetamask",
-                        { walletAddress },
+                        { walletAddress: accounts[0]},
                         config
                     );
 

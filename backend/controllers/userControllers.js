@@ -46,7 +46,9 @@ const registerUser = asyncHandler(async (req, res) => {
 //LOGIN METAMASK
 const loginMetamask = asyncHandler(async (req, res) => {
     const walletAddress = req.body.walletAddress;
-    const user = await User.findOne({ walletAddress });
+    const user = await User.findOne({ walletAddress:walletAddress });
+    console.log(user);
+    console.log(walletAddress);
 
     if (user) {
         res.json({
