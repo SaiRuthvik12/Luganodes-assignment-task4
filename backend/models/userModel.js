@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
     },
     phoneNo: { type: String, required: true },
     isAdmin: { type: Boolean, default: false },
+    walletAddress: { type: String, default: "" },
     },
     {
         timestamps: true,

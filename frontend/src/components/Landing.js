@@ -10,6 +10,7 @@ const Landing = () => {
     //         history("/profile");
     //     }
     // }, [history]);
+    
 
     return (
         <div class="form-container row">

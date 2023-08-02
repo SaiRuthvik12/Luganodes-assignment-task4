@@ -4,7 +4,7 @@ const generateToken = require('../utils/generateTokens');
 
 // REGISTER
 const registerUser = asyncHandler(async (req, res) => {
-    const {firstname, lastname, email, password, pic, phoneNo} = req.body;
+    const {firstname, lastname, email, password, pic, phoneNo, walletAddress} = req.body;
 
     const userExists = await User.findOne({email});
 
@@ -19,7 +19,8 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         pic,
-        phoneNo
+        phoneNo,
+        walletAddress,
     });
 
     if(user){
@@ -31,6 +32,8 @@ const registerUser = asyncHandler(async (req, res) => {
             phoneNo: user.phoneNo,
             isAdmin: user.isAdmin,
             token: generateToken(user._id),
+            walletAdress: user.walletAddress,
+
         });
     }
     else{
@@ -38,6 +41,28 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error("Invalid user data");
     }
 
+});
+
+//LOGIN METAMASK
+const loginMetamask = asyncHandler(async (req, res) => {
+    const walletAddress = req.body.walletAddress;
+    const user = await User.findOne({ walletAddress });
+
+    if (user) {
+        res.json({
+            _id: user._id,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email,
+            phoneNo: user.phoneNo,
+            isAdmin: user.isAdmin,
+            token: generateToken(user._id),
+            pic: user.pic,
+        });
+    } else {
+        res.status(401);
+        throw new Error("Invalid email or password");
+    }
 });
 
 // LOGIN
@@ -66,4 +91,4 @@ const authUser = asyncHandler(async (req, res) => {
     
 });
 
-module.exports = {registerUser, authUser};
+module.exports = {registerUser, authUser, loginMetamask};

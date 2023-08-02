@@ -3,10 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 import ErrorMsg from "./ErrorMsg";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Register = () => {
-
+const Register = (props) => {
     const history = useNavigate();
 
     const [firstname, setFirstname] = useState("");
@@ -28,12 +27,11 @@ const Register = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        if(password !== confirmpassword){
+        if (password !== confirmpassword) {
             setMessage("Passwords do not match");
-        }
-        else{
+        } else {
             setMessage(null);
-            try{
+            try {
                 const config = {
                     Headers: {
                         "Content-Type": "application/json",
@@ -43,29 +41,44 @@ const Register = () => {
                 setLoading(true);
                 const { data } = await axios.post(
                     "/api/users",
-                    { firstname, lastname,email, password, phoneNo, pic },
+                    { firstname, lastname, email, password, phoneNo, pic },
                     config
                 );
                 console.log(data);
                 localStorage.setItem("userInfo", JSON.stringify(data));
                 setLoading(false);
                 history("/profile");
-            }
-            catch(err){
+            } catch (err) {
                 console.log(err);
                 setError(true);
                 setLoading(false);
             }
         }
+    };
+
+    const connectWallet = async (e) => {
+        e.preventDefault();
+        if(typeof window!=="undefined" && window.ethereum !== 'undefined'){
+            console.log("Metamask installed");
+            try{
+                const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
+                props.setUserRegister(accounts[0]);
+                console.log(accounts[0]);
+                history("/Registermetamask");
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        else{
+            console.log("Metamask not installed");
+        }
+
     }
 
-
-
-
-
     return (
-        <div class="form-container row">
-            <div class="register-form">
+        <div class="login-container row">
+            <div class="register-form col-lg-6 ">
                 <h1 class="login-title">Enter your details</h1>
                 {message && <ErrorMsg msg={message}></ErrorMsg>}
                 {error && <ErrorMsg msg="User already exists"></ErrorMsg>}
@@ -77,54 +90,54 @@ const Register = () => {
                         value={firstname}
                         class="form-control top"
                         placeholder="First Name"
-                        onChange = {(e) => setFirstname(e.target.value)}
+                        onChange={(e) => setFirstname(e.target.value)}
                         required
                         autofocus
                     />
                     <input
                         type="text"
                         name="lastname"
-                        value = {lastname}
+                        value={lastname}
                         class="form-control top"
                         placeholder="Last Name"
-                        onChange = {(e) => setLastname(e.target.value)}
+                        onChange={(e) => setLastname(e.target.value)}
                         required
                         autofocus
                     />
                     <input
                         type="email"
                         name="email"
-                        value = {email}
+                        value={email}
                         class="form-control middle"
                         placeholder="Email address"
-                        onChange = {(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     ></input>
                     <input
                         type="password"
                         name="password"
-                        value = {password}
+                        value={password}
                         class="form-control bottom"
                         placeholder="Password"
-                        onChange = {(e) => setPassword(e.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <input
                         type="password"
                         name="confirmpassword"
-                        value = {confirmpassword}
+                        value={confirmpassword}
                         class="form-control bottom"
                         placeholder="Confirm Password"
-                        onChange = {(e) => setConfirmPassword(e.target.value)}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
                     <input
                         type="text"
                         name="phoneNo"
-                        value = {phoneNo}
+                        value={phoneNo}
                         class="form-control top"
                         placeholder="Phone number"
-                        onChange = {(e) => setPhoneNo(e.target.value)}
+                        onChange={(e) => setPhoneNo(e.target.value)}
                         required
                         autofocus
                     />
@@ -141,9 +154,20 @@ const Register = () => {
                     <button
                         class="login-btn btn btn-lg btn-primary btn-block"
                         type="submit"
-                        onClick = {submitHandler}
+                        onClick={submitHandler}
                     >
                         REGISTER
+                    </button>
+                </form>
+            </div>
+            <div class="col-lg-6 register-form">
+                <form class="form-signin" action="/Login">
+                    <button
+                        class="login-btn btn btn-lg btn-primary btn-block wallet-button"
+                        type="submit"
+                        onClick={connectWallet}
+                    >
+                        Connect Wallet
                     </button>
                 </form>
             </div>

@@ -425,3 +425,13 @@ CREATE POST
 .post-text{
   margin-bottom: 30px;
 }
+
+.wallet-button{
+  position: relative;
+  top: 170px;
+}
+
+.wallet-button-2{
+  position: relative;
+  top: 100px;
+}
