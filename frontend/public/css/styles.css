@@ -435,3 +435,13 @@ CREATE POST
   position: relative;
   top: 100px;
 }
+
+.details
+{
+  text-align: justify;
+  justify-content: space-between;
+  padding-left: 25%;
+  padding-right: 10%;
+  padding-top: 5%;
+  color: #f5f5f5;
+}

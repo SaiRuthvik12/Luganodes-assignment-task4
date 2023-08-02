@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
 
-    // const history = useNavigate();
-    // useEffect(() => {
-    //     if (localStorage.getItem("userInfo")) {
-    //         history("/profile");
-    //     }
-    // }, [history]);
+    const history = useNavigate();
+    useEffect(() => {
+        if (localStorage.getItem("userInfo")) {
+            history("/profile");
+        }
+    }, [history]);
     
 
     return (
